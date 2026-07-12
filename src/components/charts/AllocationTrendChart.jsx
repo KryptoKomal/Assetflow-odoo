@@ -8,7 +8,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-// Line/area chart showing allocation counts over recent months
+
 function AllocationTrendChart({ data }) {
     const hasData = data && data.length > 0;
 

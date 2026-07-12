@@ -88,7 +88,7 @@ function Login() {
     );
 }
 
-// Translates Firebase error codes into user-friendly messages
+
 export function mapAuthError(code) {
     switch (code) {
         case "auth/invalid-email":

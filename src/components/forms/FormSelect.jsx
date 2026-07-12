@@ -1,4 +1,4 @@
-// Reusable select dropdown wired to react-hook-form's register()
+
 function FormSelect({ label, error, register, name, options, placeholder = "Select an option" }) {
     return (
         <div className="mb-4">

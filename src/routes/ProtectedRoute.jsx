@@ -1,7 +1,7 @@
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-// Wraps private routes — redirects to /login if not authenticated
+
 function ProtectedRoute() {
     const { currentUser } = useAuth();
     const location = useLocation();

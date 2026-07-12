@@ -12,7 +12,7 @@ export function SidebarProvider({ children }) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const location = useLocation();
 
-    // Close mobile sidebar when route changes
+    
     useEffect(() => {
         setMobileOpen(false);
     }, [location]);

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 
-// Reusable KPI stat card used across the dashboard
+
 function KpiCard({ label, value, icon: Icon, trend, trendValue, colorClass = "bg-primary/10 text-primary", loading }) {
     const isPositive = trend === "up";
 

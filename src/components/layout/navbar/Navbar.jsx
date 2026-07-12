@@ -1,11 +1,19 @@
 import { Search, Bell, Sun, Moon, Menu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { useSidebar } from "../../../context/SidebarContext";
+import { useFirestoreCollection } from "../../../hooks/useFirestoreCollection";
+import { COLLECTIONS } from "../../../constants/collections";
+import { useAuth } from "../../../context/AuthContext";
 import ProfileMenu from "./ProfileMenu";
 
 function Navbar() {
     const { darkMode, toggleTheme } = useTheme();
     const { toggleMobile } = useSidebar();
+    const navigate = useNavigate();
+    const { currentUser } = useAuth();
+    const { data: notifications } = useFirestoreCollection(COLLECTIONS.NOTIFICATIONS);
+    const unreadCount = notifications.filter((n) => n.userId === currentUser?.uid && !n.read).length;
 
     return (
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4 dark:border-slate-800 dark:bg-slate-900 sm:px-6">
@@ -35,9 +43,13 @@ function Navbar() {
                     {darkMode ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
                 </button>
 
-                <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                <button onClick={() => navigate("/notifications")} className="relative flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
                     <Bell className="h-[18px] w-[18px]" />
-                    <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-danger" />
+                    {unreadCount > 0 && (
+                        <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-white">
+                            {unreadCount > 9 ? "9+" : unreadCount}
+                        </span>
+                    )}
                 </button>
 
                 <div className="mx-1 h-6 w-px bg-slate-200 dark:bg-slate-700" />

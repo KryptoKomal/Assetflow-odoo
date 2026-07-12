@@ -1,7 +1,7 @@
 import { Activity } from "lucide-react";
 import { timeAgo } from "../../utils/dashboardHelpers";
 
-// Shows the latest entries from the activityLogs collection
+
 function RecentActivity({ logs, loading }) {
     if (loading) {
         return (

@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, orderBy, limit as fbLimit } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
-/**
- * Real-time subscription to a Firestore collection.
- * @param {string} collectionName
- * @param {object} options - { orderByField, orderDirection, limit }
- */
+
 export function useFirestoreCollection(collectionName, options = {}) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,13 +28,14 @@ export function useFirestoreCollection(collectionName, options = {}) {
                 setLoading(false);
             },
             (err) => {
+                console.error(`Firestore subscription error for "${collectionName}":`, err);
                 setError(err);
                 setLoading(false);
             }
         );
 
         return unsubscribe;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [collectionName, options.orderByField, options.orderDirection, options.limit]);
 
     return { data, loading, error };

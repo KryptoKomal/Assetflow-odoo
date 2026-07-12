@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function isAdmin() { return isSignedIn() && userRole() == "admin"; }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || request.auth.uid == userId;
+    }
+
+    match /departments/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /assetCategories/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /allocations/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /transferRequests/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /auditCycles/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /auditReports/{id} { allow read: if isSignedIn(); allow write: if isAdmin(); }
+    match /activityLogs/{id} { allow read: if isAdmin(); allow create: if isSignedIn(); allow update, delete: if false; }
+
+    match /assets/{id} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /bookings/{id} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin() || resource.data.employeeId == request.auth.uid;
+    }
+
+    match /maintenanceRequests/{id} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /notifications/{id} {
+      allow read, update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn();
+    }
+  }
+}

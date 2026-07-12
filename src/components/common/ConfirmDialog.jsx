@@ -1,7 +1,7 @@
 import { AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
 
-// Reusable confirmation dialog for destructive actions (delete, deactivate, etc.)
+
 function ConfirmDialog({ isOpen, onClose, onConfirm, title, message, confirmLabel = "Delete", loading }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="max-w-sm">

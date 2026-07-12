@@ -14,42 +14,42 @@ import {
     History,
 } from "lucide-react";
 
-// Single source of truth for sidebar navigation — grouped by section
+
 export const NAV_SECTIONS = [
     {
         label: "Overview",
-        items: [{ label: "Dashboard", path: "/", icon: LayoutDashboard }],
+        items: [{ label: "Dashboard", path: "/", icon: LayoutDashboard, roles: ["admin", "manager", "employee"] }],
     },
     {
         label: "Organization",
         items: [
-            { label: "Departments", path: "/departments", icon: Building2 },
-            { label: "Employees", path: "/employees", icon: Users },
-            { label: "Categories", path: "/categories", icon: FolderTree },
+            { label: "Departments", path: "/departments", icon: Building2, roles: ["admin"] },
+            { label: "Employees", path: "/employees", icon: Users, roles: ["admin"] },
+            { label: "Categories", path: "/categories", icon: FolderTree, roles: ["admin"] },
         ],
     },
     {
         label: "Assets",
         items: [
-            { label: "Assets", path: "/assets", icon: Boxes },
-            { label: "Allocation", path: "/allocation", icon: ArrowLeftRight },
-            { label: "Transfer", path: "/transfer", icon: ArrowRightLeft },
+            { label: "Assets", path: "/assets", icon: Boxes, roles: ["admin", "manager", "employee"] },
+            { label: "Allocation", path: "/allocation", icon: ArrowLeftRight, roles: ["admin"] },
+            { label: "Transfer", path: "/transfer", icon: ArrowRightLeft, roles: ["admin"] },
         ],
     },
     {
         label: "Operations",
         items: [
-            { label: "Bookings", path: "/bookings", icon: CalendarClock },
-            { label: "Maintenance", path: "/maintenance", icon: Wrench },
-            { label: "Audit", path: "/audit", icon: ClipboardCheck },
+            { label: "Bookings", path: "/bookings", icon: CalendarClock, roles: ["admin", "manager", "employee"] },
+            { label: "Maintenance", path: "/maintenance", icon: Wrench, roles: ["admin", "manager", "employee"] },
+            { label: "Audit", path: "/audit", icon: ClipboardCheck, roles: ["admin"] },
         ],
     },
     {
         label: "Insights",
         items: [
-            { label: "Reports", path: "/reports", icon: BarChart3 },
-            { label: "Notifications", path: "/notifications", icon: Bell },
-            { label: "Logs", path: "/logs", icon: History },
+            { label: "Reports", path: "/reports", icon: BarChart3, roles: ["admin"] },
+            { label: "Notifications", path: "/notifications", icon: Bell, roles: ["admin", "manager", "employee"] },
+            { label: "Logs", path: "/logs", icon: History, roles: ["admin"] },
         ],
     },
 ];

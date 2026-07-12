@@ -1,4 +1,4 @@
-// Groups raw assets array into pie-chart-ready status buckets
+
 export function buildAssetStatusData(assets) {
     const buckets = { Available: 0, Allocated: 0, "In Maintenance": 0, Retired: 0 };
 
@@ -8,13 +8,13 @@ export function buildAssetStatusData(assets) {
         else if (status === "allocated") buckets.Allocated += 1;
         else if (status === "maintenance") buckets["In Maintenance"] += 1;
         else if (status === "retired") buckets.Retired += 1;
-        else buckets.Available += 1; // fallback bucket
+        else buckets.Available += 1; 
     });
 
     return Object.entries(buckets).map(([name, value]) => ({ name, value }));
 }
 
-// Groups allocations by month (last 6 months) for the trend chart
+
 export function buildAllocationTrendData(allocations) {
     const now = new Date();
     const months = [];
@@ -39,7 +39,7 @@ export function buildAllocationTrendData(allocations) {
     return months.map(({ month, count }) => ({ month, count }));
 }
 
-// Formats a Firestore Timestamp (or missing value) into a relative "time ago" string
+
 export function timeAgo(timestamp) {
     if (!timestamp?.toDate) return "just now";
     const date = timestamp.toDate();

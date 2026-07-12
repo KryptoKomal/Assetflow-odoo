@@ -3,53 +3,58 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Boxes, ChevronsLeft, ChevronsRight, X } from "lucide-react";
 import { useSidebar } from "../../../context/SidebarContext";
 import { NAV_SECTIONS } from "../../../constants/navigation";
+import { useRole } from "../../../hooks/useRole";
 
 function SidebarContent({ collapsed }) {
+    const { role } = useRole();
+
     return (
         <>
-            {/* Logo */}
             <div className={`flex items-center gap-2 px-4 py-5 ${collapsed ? "justify-center" : ""}`}>
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary">
                     <Boxes className="h-5 w-5 text-white" />
                 </div>
                 {!collapsed && (
                     <span className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-            AssetFlow
-          </span>
+                        AssetFlow
+                    </span>
                 )}
             </div>
 
-            {/* Nav sections */}
             <nav className="flex-1 space-y-5 overflow-y-auto px-3 pb-4">
-                {NAV_SECTIONS.map((section) => (
-                    <div key={section.label}>
-                        {!collapsed && (
-                            <p className="mb-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                                {section.label}
-                            </p>
-                        )}
-                        <div className="space-y-1">
-                            {section.items.map((item) => (
-                                <NavLink
-                                    key={item.path}
-                                    to={item.path}
-                                    end={item.path === "/"}
-                                    className={({ isActive }) =>
-                                        `flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition ${
-                                            isActive
-                                                ? "bg-primary/10 text-primary"
-                                                : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-                                        } ${collapsed ? "justify-center" : ""}`
-                                    }
-                                    title={collapsed ? item.label : undefined}
-                                >
-                                    <item.icon className="h-[18px] w-[18px] shrink-0" />
-                                    {!collapsed && <span>{item.label}</span>}
-                                </NavLink>
-                            ))}
+                {NAV_SECTIONS.map((section) => {
+                    const visibleItems = section.items.filter((item) => item.roles.includes(role));
+                    if (visibleItems.length === 0) return null;
+                    return (
+                        <div key={section.label}>
+                            {!collapsed && (
+                                <p className="mb-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                                    {section.label}
+                                </p>
+                            )}
+                            <div className="space-y-1">
+                                {visibleItems.map((item) => (
+                                    <NavLink
+                                        key={item.path}
+                                        to={item.path}
+                                        end={item.path === "/"}
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition ${
+                                                isActive
+                                                    ? "bg-primary/10 text-primary"
+                                                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                                            } ${collapsed ? "justify-center" : ""}`
+                                        }
+                                        title={collapsed ? item.label : undefined}
+                                    >
+                                        <item.icon className="h-[18px] w-[18px] shrink-0" />
+                                        {!collapsed && <span>{item.label}</span>}
+                                    </NavLink>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </nav>
         </>
     );

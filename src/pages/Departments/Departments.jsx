@@ -44,7 +44,7 @@ function Departments() {
         }
     }
 
-    // Resolve parentDepartment id -> readable name for display
+    
     function parentName(id) {
         return departments.find((d) => d.id === id)?.name || "—";
     }

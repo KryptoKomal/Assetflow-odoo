@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
-// Generic reusable modal shell — used for all create/edit forms across the app
+
 function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-md" }) {
   return (
     <AnimatePresence>

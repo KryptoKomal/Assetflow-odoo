@@ -2,7 +2,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 
 const COLORS = ["#2563EB", "#10B981", "#F97316", "#EF4444", "#64748B"];
 
-// Donut chart showing asset breakdown by status (available, allocated, maintenance, etc.)
+
 function AssetStatusChart({ data }) {
     const hasData = data && data.some((d) => d.value > 0);
 

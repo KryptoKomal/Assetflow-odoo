@@ -1,4 +1,4 @@
-// Reusable textarea wired to react-hook-form's register()
+
 function FormTextarea({ label, error, register, name, placeholder, rows = 3 }) {
     return (
         <div className="mb-4">

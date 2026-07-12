@@ -3,10 +3,7 @@ import { ChevronUp, ChevronDown, Search, ChevronLeft, ChevronRight } from "lucid
 import Spinner from "../common/Spinner";
 import EmptyState from "../common/EmptyState";
 
-/**
- * Generic reusable data table with sorting, searching, and pagination.
- * columns: [{ key, label, render?(row) }]
- */
+
 function DataTable({ columns, data, loading, searchable = true, pageSize = 8, emptyTitle = "No records found", emptyIcon }) {
     const [search, setSearch] = useState("");
     const [sortKey, setSortKey] = useState(null);
@@ -19,7 +16,7 @@ function DataTable({ columns, data, loading, searchable = true, pageSize = 8, em
         return data.filter((row) =>
             columns.some((col) => String(row[col.key] ?? "").toLowerCase().includes(lower))
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [data, search]);
 
     const sorted = useMemo(() => {

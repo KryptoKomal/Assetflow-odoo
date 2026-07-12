@@ -6,7 +6,7 @@ const STYLES = {
     rejected: "bg-danger/10 text-danger",
 };
 
-// Reusable colored pill for status fields across every module
+
 function StatusBadge({ status }) {
     const style = STYLES[status?.toLowerCase()] || "bg-slate-100 text-slate-500 dark:bg-slate-800";
     return (

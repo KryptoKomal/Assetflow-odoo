@@ -1,4 +1,4 @@
-// Reusable "no data yet" placeholder for tables/lists across the app
+
 function EmptyState({ icon: Icon, title, message, action }) {
     return (
         <div className="flex flex-col items-center justify-center py-14 text-center">

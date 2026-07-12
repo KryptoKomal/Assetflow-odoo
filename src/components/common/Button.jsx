@@ -7,7 +7,7 @@ const VARIANTS = {
   ghost: "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800",
 };
 
-// Reusable button used across the app for consistent styling + loading state
+
 function Button({ children, variant = "primary", loading, icon: Icon, className = "", ...props }) {
   return (
     <button

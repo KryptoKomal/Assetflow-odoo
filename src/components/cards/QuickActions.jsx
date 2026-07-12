@@ -1,20 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { PlusCircle, ArrowLeftRight, CalendarPlus, Wrench } from "lucide-react";
+import { useRole } from "../../hooks/useRole";
 
 const ACTIONS = [
-    { label: "Add Asset", path: "/assets", icon: PlusCircle, colorClass: "bg-primary/10 text-primary" },
-    { label: "Allocate", path: "/allocation", icon: ArrowLeftRight, colorClass: "bg-accent/10 text-accent" },
-    { label: "New Booking", path: "/bookings", icon: CalendarPlus, colorClass: "bg-warning/10 text-warning" },
-    { label: "Raise Request", path: "/maintenance", icon: Wrench, colorClass: "bg-danger/10 text-danger" },
+    { label: "Add Asset", path: "/assets", icon: PlusCircle, colorClass: "bg-primary/10 text-primary", roles: ["admin"] },
+    { label: "Allocate", path: "/allocation", icon: ArrowLeftRight, colorClass: "bg-accent/10 text-accent", roles: ["admin"] },
+    { label: "New Booking", path: "/bookings", icon: CalendarPlus, colorClass: "bg-warning/10 text-warning", roles: ["admin", "manager", "employee"] },
+    { label: "Raise Request", path: "/maintenance", icon: Wrench, colorClass: "bg-danger/10 text-danger", roles: ["admin", "manager", "employee"] },
 ];
 
-// Shortcut buttons to jump straight into common creation workflows
 function QuickActions() {
     const navigate = useNavigate();
+    const { role } = useRole();
+
+    const visibleActions = ACTIONS.filter((action) => action.roles.includes(role));
 
     return (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {ACTIONS.map((action) => (
+            {visibleActions.map((action) => (
                 <button
                     key={action.label}
                     onClick={() => navigate(action.path)}
@@ -24,8 +27,8 @@ function QuickActions() {
                         <action.icon className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
-            {action.label}
-          </span>
+                        {action.label}
+                    </span>
                 </button>
             ))}
         </div>

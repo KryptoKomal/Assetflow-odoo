@@ -34,7 +34,7 @@ function DepartmentFormModal({ isOpen, onClose, editingDepartment, departments }
         }
     }, [isOpen, editingDepartment, reset]);
 
-    // Exclude the department itself from "parent" options when editing (avoid self-reference)
+    
     const parentOptions = departments
         .filter((d) => d.id !== editingDepartment?.id)
         .map((d) => ({ value: d.id, label: d.name }));

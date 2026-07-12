@@ -4,20 +4,7 @@ import Signup from "../pages/Auth/Signup";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../components/layout/DashboardLayout";
-
-// Temporary placeholder — will be replaced with real Dashboard content next
-function DashboardHome() {
-    return (
-        <div>
-            <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Dashboard
-            </h1>
-            <p className="mt-1 text-sm text-slate-500">
-                KPI cards & charts coming in the next module.
-            </p>
-        </div>
-    );
-}
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 function ModulePlaceholder({ label }) {
     return (
@@ -33,15 +20,13 @@ function ModulePlaceholder({ label }) {
 function AppRoutes() {
     return (
         <Routes>
-            {/* Public routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            {/* Protected routes — all wrapped in the dashboard shell */}
             <Route element={<ProtectedRoute />}>
                 <Route element={<DashboardLayout />}>
-                    <Route path="/" element={<DashboardHome />} />
+                    <Route path="/" element={<Dashboard />} />
                     <Route path="/departments" element={<ModulePlaceholder label="Departments" />} />
                     <Route path="/employees" element={<ModulePlaceholder label="Employees" />} />
                     <Route path="/categories" element={<ModulePlaceholder label="Categories" />} />

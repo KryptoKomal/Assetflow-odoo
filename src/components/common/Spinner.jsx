@@ -1,3 +1,4 @@
+// Simple reusable loading spinner used across the app
 function Spinner({ size = 24 }) {
     return (
         <div

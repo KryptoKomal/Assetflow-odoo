@@ -13,6 +13,7 @@ import { COLLECTIONS } from "../constants/collections";
 
 const AuthContext = createContext();
 
+// Custom hook to consume auth context anywhere in the app
 export function useAuth() {
     return useContext(AuthContext);
 }
@@ -33,6 +34,7 @@ export function AuthProvider({ children }) {
         }
     }
 
+    // Sign up new user + create Firestore profile doc
     async function signup(name, email, password) {
         const result = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(result.user, { displayName: name });
@@ -88,6 +90,7 @@ export function AuthProvider({ children }) {
         resetPassword,
     };
 
+    // Don't render app until we know auth state — avoids flicker/redirect bugs
     return (
         <AuthContext.Provider value={value}>
             {!loading && children}

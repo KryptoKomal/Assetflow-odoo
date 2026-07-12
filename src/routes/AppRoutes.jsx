@@ -4,6 +4,7 @@ import Signup from "../pages/Auth/Signup";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 
+// Temporary placeholder for the dashboard until that module is built
 function DashboardPlaceholder() {
     return (
         <div className="flex h-screen w-full items-center justify-center">

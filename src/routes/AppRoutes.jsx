@@ -5,6 +5,7 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import Departments from "../pages/Departments/Departments";
 
 function ModulePlaceholder({ label }) {
     return (
@@ -20,14 +21,16 @@ function ModulePlaceholder({ label }) {
 function AppRoutes() {
     return (
         <Routes>
+            {/* Public routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
+            {/* Protected routes — all wrapped in the dashboard shell */}
             <Route element={<ProtectedRoute />}>
                 <Route element={<DashboardLayout />}>
                     <Route path="/" element={<Dashboard />} />
-                    <Route path="/departments" element={<ModulePlaceholder label="Departments" />} />
+                    <Route path="/departments" element={<Departments />} />
                     <Route path="/employees" element={<ModulePlaceholder label="Employees" />} />
                     <Route path="/categories" element={<ModulePlaceholder label="Categories" />} />
                     <Route path="/assets" element={<ModulePlaceholder label="Assets" />} />
